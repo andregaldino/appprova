@@ -1,0 +1,35 @@
+# v2 syntax
+version: '2'
+
+# Named volumes
+volumes:
+  # MySQL Data
+  appprova-mysql-data:
+    driver: local
+services:
+  # MySQL (5.7)
+  mysql:
+    build: ./.docker/mysql/
+    container_name: appprova-mysql
+    restart: always
+    volumes:
+      - appprova-mysql-data:/var/lib/mysql
+    ports:
+      - "33067:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=appprova
+      - MYSQL_DATABASE=appprova
+      - MYSQL_USER=appprova
+      - MYSQL_PASSWORD=appprova
+
+  # PHP (with Nginx)
+  app:
+    build: ./.docker/php/
+    restart: always
+    container_name: appprova-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "8080:8080"
+    links:
+      - mysql
