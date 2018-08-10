@@ -10,8 +10,9 @@ namespace App\Repositories\Institution;
 
 use App\Models\Institution;
 use App\Repositories\Base\CrudContract;
+use App\Repositories\Base\SearchContract;
 
-class InstitutionRepository implements InstitutionRepositoryContract, CrudContract
+class InstitutionRepository implements InstitutionRepositoryContract, CrudContract, SearchContract
 {
 	public function findByName(String $name)
 	{
@@ -36,5 +37,10 @@ class InstitutionRepository implements InstitutionRepositoryContract, CrudContra
 	public function remove(int $id)
 	{
 		return Institution::findOrFail($id)->delete();
+	}
+	
+	public function searchByName(String $name)
+	{
+		return Institution::where('name', 'like', "%$name%")->get();
 	}
 }

@@ -60,7 +60,7 @@ class InstitutionTest extends  TestCase
 		$institutions = factory(Institution::class,5)->create();
 		$institutionFaker = $institutions->get(2);
 		
-		$institutions = $this->repository->update($institutionFaker->id, [
+		$this->repository->update($institutionFaker->id, [
 			'name' => 'Universidade Federal'
 		]);
 		
@@ -83,6 +83,13 @@ class InstitutionTest extends  TestCase
 		
 	}
 	
-	
-	
+	public function testSearchByPartOfName()
+	{
+		$institutionsFaker = factory(Institution::class,10)->create();
+		$institutionFaker = $institutionsFaker->get(1);
+		
+		$institutions = $this->repository->searchByName(substr($institutionFaker->name, 0 ,-3));
+		
+		$this->assertTrue($institutions->contains($institutionFaker));
+	}
 }

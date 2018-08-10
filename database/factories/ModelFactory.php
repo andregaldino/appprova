@@ -13,6 +13,6 @@
 
 $factory->define(App\Models\Institution::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->company(),
     ];
 });
