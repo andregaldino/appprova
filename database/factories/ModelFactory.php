@@ -16,3 +16,10 @@ $factory->define(App\Models\Institution::class, function (Faker\Generator $faker
         'name' => $faker->company(),
     ];
 });
+
+$factory->define(App\Models\Course::class, function (Faker\Generator $faker) {
+	return [
+		'name' => $faker->name,
+		'institution_id' => factory(App\Models\Institution::class)
+	];
+});
