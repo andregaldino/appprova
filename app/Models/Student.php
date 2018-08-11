@@ -12,7 +12,7 @@ class Student extends Model
 	
 	public function courses()
 	{
-		return $this->belongsToMany('App\Models\Course', 'student_course');
+		return $this->belongsToMany('App\Models\Course', 'student_course')->withPivot('grade');
 	}
 }
 

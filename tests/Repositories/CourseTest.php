@@ -145,5 +145,4 @@ class CourseTest extends  TestCase
 		});
 	}
 	
-	
 }

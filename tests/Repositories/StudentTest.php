@@ -96,4 +96,17 @@ class StudentTest extends  TestCase
 		
 		$this->assertTrue($student->courses->contains($course));
 	}
+	
+	
+	public function testAddGradeStudentByCourse()
+	{
+		$courses = factory(Course::class,3)->create();
+		$students = factory(Student::class,15)->create();
+		$grade = 3;
+		$course = $courses->get(2);
+		$this->repository->subscriptionCourse($students->get(10)->id, $course);
+		$student = $students->get(10);
+		$this->assertTrue($this->repository->addGradeCourse($student->id, $course->id, $grade));
+		$this->assertEquals(3, $student->courses()->where('course_id', $course->id)->first()->pivot->grade);
+	}
 }

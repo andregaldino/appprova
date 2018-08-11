@@ -49,4 +49,10 @@ class StudentRepository implements StudentRepositoryContract, CrudContract
 		return Student::find($value);
 	}
 	
+	public function addGradeCourse($id, $course, $grade): bool
+	{
+		$student = Student::findOrFail($id);
+		return ($student->courses()->updateExistingPivot($course, ['grade' => $grade])) ? true : false;
+	}
+	
 }
