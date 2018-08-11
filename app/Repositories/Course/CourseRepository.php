@@ -42,4 +42,11 @@ class CourseRepository implements CourseRepositoryContract, CrudContract, Search
 	{
 		return Course::find($value);
 	}
+	
+	public function addStudents($id, $students)
+	{
+		$course = Course::findOrFail($id);
+		$course->students()->attach($students);
+		return $course;
+	}
 }

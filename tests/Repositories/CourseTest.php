@@ -3,6 +3,7 @@ namespace Tests\Repositories;
 
 use App\Models\Course;
 use App\Models\Institution;
+use App\Models\Student;
 use Tests\TestCase;
 use App\Repositories\Course\CourseRepository;
 use App\Repositories\Course\CourseRepositoryContract;
@@ -120,6 +121,29 @@ class CourseTest extends  TestCase
 		$this->assertTrue($courses->contains($coursesFaker->get(1)));
 	}
 	
+	public function testAddStudentsToCourse()
+	{
+		$coursesFaker = factory(Course::class,10)->create();
+		$studentsFaker = factory(Student::class,10)->create();
+		$studentsFaker1 = factory(Student::class,20)->create();
+		
+		$studentsIds = $studentsFaker->pluck('id')->toArray();
+		
+		$course = $this->repository->addStudents($coursesFaker->get(0)->id, $studentsIds);
+		
+		$this->assertCount(10,
+			$course
+				->students
+				->whereIn('id',$studentsIds)
+		);
+		
+		$studentsFaker->each(function($student) use ($course){
+			$this->seeInDatabase('student_course', [
+				'student_id' => $student->id,
+				'course_id' =>  $course->id
+			]);
+		});
+	}
 	
 	
 }

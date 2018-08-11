@@ -9,4 +9,9 @@ class Course extends Model
 	protected $fillable = ['name','institution_id'];
 	
 	public $timestamps = false;
+	
+	public function students()
+	{
+		return $this->belongsToMany('App\Models\Student','student_course');
+	}
 }
