@@ -49,4 +49,9 @@ class CourseRepository implements CourseRepositoryContract, CrudContract, Search
 		$course->students()->attach($students);
 		return $course;
 	}
+	
+	public function averageGradeByCourse($course)
+	{
+		return round(Course::findOrFail($course)->students()->avg('grade'), 1);
+	}
 }

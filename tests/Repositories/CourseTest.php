@@ -145,4 +145,51 @@ class CourseTest extends  TestCase
 		});
 	}
 	
+	public function testAverageGrade()
+	{
+		$courseFaker = factory(Course::class)->create();
+		
+		$student = factory(Student::class)->create();
+		$student1 = factory(Student::class)->create();
+		$student2 = factory(Student::class)->create();
+		$courseFaker->students()->sync([
+			$student->id => ['grade' => 8],
+			$student1->id => ['grade' => 10],
+			$student2->id => ['grade' => 2]
+		]);
+		
+		$this->assertEquals(6.7, $this->repository->averageGradeByCourse($courseFaker->id));
+		
+		$courseFaker1 = factory(Course::class)->create();
+		
+		$studentFaker = factory(Student::class)->create();
+		$studentFaker1 = factory(Student::class)->create();
+		$studentFaker2 = factory(Student::class)->create();
+		$studentFaker3 = factory(Student::class)->create();
+		$studentFaker4 = factory(Student::class)->create();
+		$courseFaker1->students()->sync([
+			$studentFaker->id => ['grade' => 2],
+			$studentFaker1->id => ['grade' => 4],
+			$studentFaker2->id => ['grade' => 7],
+			$studentFaker3->id => ['grade' => 7],
+			$studentFaker4->id => ['grade' => 3],
+		]);
+		
+		$this->assertEquals(4.6, $this->repository->averageGradeByCourse($courseFaker1->id));
+	}
+	
+	public function testGradeCourse()
+	{
+		$institutionFaker = factory(Institution::class)->create();
+		$courseFaker = factory(Course::class)->create([
+			'name' => 'Analise e Desenvolivmento de Sistemas',
+			'grade' => 4,
+			'institution_id' => $institutionFaker->id
+		]);
+		$this->seeInDatabase('courses',[
+			'grade' => 4,
+			'institution_id' => $institutionFaker->id
+		]);
+	}
+	
 }
