@@ -28,13 +28,13 @@ class CourseTest extends  TestCase
 	public function testCreate()
 	{
 		$institution = factory(Institution::class)->create();
+		
 		$course = $this->repository->create([
 			'name' => 'Analise de Sistemas',
 			'institution_id' => $institution->id
 		]);
-		
 		$this->seeInDatabase('courses', [
-			'name' => 'Analise de Sistema',
+			'name' => 'Analise de Sistemas',
 			'institution_id' => $institution->id
 		]);
 	}

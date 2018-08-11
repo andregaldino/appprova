@@ -19,4 +19,6 @@ interface CrudContract
 	
 	public function remove(int $id);
 	
+	public function find($value);
+	
 }

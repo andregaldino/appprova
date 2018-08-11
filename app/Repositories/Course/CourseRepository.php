@@ -37,4 +37,9 @@ class CourseRepository implements CourseRepositoryContract, CrudContract, Search
 	{
 		return Course::where('name', 'like', "%$name%")->get();
 	}
+	
+	public function find($value)
+	{
+		return Course::find($value);
+	}
 }

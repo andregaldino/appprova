@@ -23,3 +23,10 @@ $factory->define(App\Models\Course::class, function (Faker\Generator $faker) {
 		'institution_id' => factory(App\Models\Institution::class)
 	];
 });
+
+
+$factory->define(App\Models\Student::class, function (Faker\Generator $faker) {
+	return [
+		'name' => $faker->name,
+	];
+});

@@ -43,4 +43,9 @@ class InstitutionRepository implements InstitutionRepositoryContract, CrudContra
 	{
 		return Institution::where('name', 'like', "%$name%")->get();
 	}
+	
+	public function find($value)
+	{
+		return Institution::find($value);
+	}
 }
