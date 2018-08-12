@@ -12,7 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Institution extends Model
 {
-	protected $fillable = ['name'];
+	protected $fillable = ['name','grade'];
 	
 	public $timestamps = false;
+	
+	public function courses()
+	{
+		return $this->hasMany(Course::class);
+	}
 }

@@ -32,7 +32,11 @@ class InstitutionRepository implements InstitutionRepositoryContract, CrudContra
 	
 	public function update(int $id, array $data)
 	{
-		return Institution::findOrFail($id)->update($data);
+		$institution = Institution::findOrFail($id);
+		if(!$institution->update($data)){
+			throw new \Exception('Error to save Institution');
+		}
+		return $institution;
 	}
 	
 	public function remove(int $id)
@@ -42,7 +46,7 @@ class InstitutionRepository implements InstitutionRepositoryContract, CrudContra
 	
 	public function searchByName(String $name)
 	{
-		return Institution::where('name', 'like', "%$name%")->get();
+		return Institution::where('name', 'like', "%$name%")->orderBy('grade','desc')->get();
 	}
 	
 	public function find($value)

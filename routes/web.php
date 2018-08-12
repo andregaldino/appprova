@@ -11,6 +11,15 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+
+$router->group(['prefix' => '/api'], function () use ($router) {
+	$router->group(['as' => 'institutions.', 'prefix' => 'institutions'], function() use ($router){
+		$router->get('/',['as' => 'index', 'uses' => 'InstitutionController@index']);
+		$router->post('/',['as' => 'store', 'uses' => 'InstitutionController@store']);
+		$router->get('orderedGrade',['as' => 'orderGrade', 'uses' => 'InstitutionController@orderedGrade']);
+		$router->patch('{id}/update',['as' => 'update', 'uses' => 'InstitutionController@update']);
+		$router->get('searchByName/{name}',['as' => 'find.name', 'uses' => 'InstitutionController@searchByName']);
+	});
+	
+	
 });
