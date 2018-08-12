@@ -95,4 +95,13 @@ class InstitutionController
 			new InstitutionTransformer
 		);
 	}
+	
+	public function findByGrade($grade)
+	{
+		$institutions = $this->repository->filterByGrade($grade);
+		
+		return $this->response->withCollection($institutions, new InstitutionTransformer);
+	}
+
+
 }

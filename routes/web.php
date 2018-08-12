@@ -19,6 +19,7 @@ $router->group(['prefix' => '/api'], function () use ($router) {
 		$router->get('orderedGrade',['as' => 'orderGrade', 'uses' => 'InstitutionController@orderedGrade']);
 		$router->patch('{id}/update',['as' => 'update', 'uses' => 'InstitutionController@update']);
 		$router->get('searchByName/{name}',['as' => 'find.name', 'uses' => 'InstitutionController@searchByName']);
+		$router->get('findByGrade/{grade}',['as' => 'find.grade', 'uses' => 'InstitutionController@findByGrade']);
 	});
 	
 	$router->group(['as' => 'courses.', 'prefix' => 'courses'], function() use ($router){
