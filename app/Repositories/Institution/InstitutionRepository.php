@@ -53,4 +53,10 @@ class InstitutionRepository implements InstitutionRepositoryContract, CrudContra
 	{
 		return Institution::orderBy('grade','desc')->get();
 	}
+	
+	public function filterByGrade($grade)
+	{
+		return Institution::where('grade',$grade)->get();
+	}
+	
 }
