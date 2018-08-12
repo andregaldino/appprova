@@ -13,6 +13,7 @@ use App\Repositories\Institution\InstitutionRepositoryContract;
 use App\Transformers\InstitutionTransformer;
 use EllipseSynergie\ApiResponse\Contracts\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class InstitutionController
 {
@@ -48,6 +49,16 @@ class InstitutionController
 	
 	public function store(Request $request)
 	{
+		$validator = Validator::make($request->all(), [
+			'name' => 'required|max:255',
+			'grade' => 'numeric'
+		]);
+		
+		if ($validator->fails()) {
+			return $this->response->errorWrongArgsValidator($validator);
+		}
+		
+		
 		$institution = $this->repository->create($request->all());
 		
 		if(!$institution){
@@ -61,6 +72,15 @@ class InstitutionController
 	
 	public function update(Request $request, $id)
 	{
+		$validator = Validator::make($request->all(), [
+			'name' => 'required|max:255',
+			'grade' => 'numeric'
+		]);
+		
+		if ($validator->fails()) {
+			return $this->response->errorWrongArgsValidator($validator);
+		}
+		
 		$institution = $this->repository->find($id);
 		if(!$institution){
 			return $this->response->errorNotFound('Institution not found');

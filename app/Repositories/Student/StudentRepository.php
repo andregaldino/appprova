@@ -39,7 +39,7 @@ class StudentRepository implements StudentRepositoryContract, CrudContract
 	{
 		$student = Student::findOrFail($id);
 		
-		$student->courses()->save($course);
+		$student->courses()->attach($course);
 		
 		return $student;
 	}

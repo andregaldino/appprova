@@ -9,13 +9,13 @@
 namespace App\Transformers;
 
 
-use App\Models\Institution;
+use App\Models\Course;
 use League\Fractal\TransformerAbstract;
 
 class CourseTransformer extends TransformerAbstract
 {
 	protected $defaultIncludes = [
-		'program'
+		'institution'
 	];
 	
 	public function transform(Course $course)
@@ -27,7 +27,7 @@ class CourseTransformer extends TransformerAbstract
 		];
 	}
 	
-	public function includeProgram(Course $course){
+	public function includeInstitution(Course $course){
 		return $this->item($course->institution, new InstitutionTransformer);
 	}
 }
