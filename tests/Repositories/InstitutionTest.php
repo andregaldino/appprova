@@ -8,7 +8,6 @@ use App\Repositories\Institution\InstitutionRepositoryContract;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Laravel\Lumen\Testing\DatabaseTransactions;
 
-
 class InstitutionTest extends  TestCase
 {
 	use DatabaseMigrations;
@@ -51,7 +50,7 @@ class InstitutionTest extends  TestCase
 		
 		$institutions = $this->repository->all();
 		
-		$this->assertCount(20, $institutions);
+		$this->assertGreaterThanOrEqual(20, $institutions->count());
 		
 	}
 	
@@ -91,5 +90,18 @@ class InstitutionTest extends  TestCase
 		$institutions = $this->repository->searchByName(substr($institutionFaker->name, 0 ,-3));
 		
 		$this->assertTrue($institutions->contains($institutionFaker));
+	}
+	
+	public function testGradeInstitution()
+	{
+		$institutionFaker = factory(Institution::class)->create([
+			'name' => 'Impacta',
+			'grade' => 5,
+		]);
+		$this->seeInDatabase('institutions',[
+			'grade' => 5,
+			'name' => 'Impacta',
+			'id' => $institutionFaker->id
+		]);
 	}
 }
