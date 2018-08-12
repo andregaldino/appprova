@@ -21,6 +21,7 @@ $factory->define(App\Models\Institution::class, function (Faker\Generator $faker
 $factory->define(App\Models\Course::class, function (Faker\Generator $faker) {
 	return [
 		'name' => $faker->name,
+		'grade' => $faker->numberBetween(1,5),
 		'institution_id' => factory(App\Models\Institution::class)
 	];
 });

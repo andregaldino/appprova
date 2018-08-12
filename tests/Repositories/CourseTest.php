@@ -191,4 +191,12 @@ class CourseTest extends  TestCase
 		]);
 	}
 	
+	
+	public function testFilterByGrade()
+	{
+		$grade = 4;
+		$coursesFakerFiltered = $this->coursesFaker->where('grade', $grade);
+		$coursesFiltered = $this->repository->filterByGrade($grade);
+		$this->assertEquals($coursesFakerFiltered->pluck('id'), $coursesFiltered->pluck('id'));
+	}
 }

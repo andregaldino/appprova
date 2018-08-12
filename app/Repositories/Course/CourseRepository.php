@@ -3,7 +3,6 @@
 namespace App\Repositories\Course;
 
 use App\Models\Course;
-use App\Models\Institution;
 use App\Repositories\Base\CrudContract;
 use App\Repositories\Base\FilterContract;
 use App\Repositories\Base\SearchContract;
@@ -59,6 +58,7 @@ class CourseRepository implements CourseRepositoryContract, CrudContract, Search
 	
 	public function filterByGrade($grade)
 	{
-		return Institution::where('grade', $grade)->get();
+		return Course::where('grade', $grade)->get();
 	}
+	
 }

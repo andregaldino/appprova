@@ -112,7 +112,7 @@ class InstitutionTest extends  TestCase
 	public function testFilterByGrade()
 	{
 		$grade = 4;
-		$institutionsFakerFiltered = $this->institutionsFaker->where('grade', 4);
+		$institutionsFakerFiltered = $this->institutionsFaker->where('grade', $grade);
 		$institutionsFiltered = $this->repository->filterByGrade($grade);
 		$this->assertEquals($institutionsFakerFiltered->pluck('id'), $institutionsFiltered->pluck('id'));
 	}
