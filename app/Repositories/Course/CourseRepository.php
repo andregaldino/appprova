@@ -3,10 +3,12 @@
 namespace App\Repositories\Course;
 
 use App\Models\Course;
+use App\Models\Institution;
 use App\Repositories\Base\CrudContract;
+use App\Repositories\Base\FilterContract;
 use App\Repositories\Base\SearchContract;
 
-class CourseRepository implements CourseRepositoryContract, CrudContract, SearchContract
+class CourseRepository implements CourseRepositoryContract, CrudContract, SearchContract, FilterContract
 {
 	public function findByName(String $name)
 	{
@@ -53,5 +55,10 @@ class CourseRepository implements CourseRepositoryContract, CrudContract, Search
 	public function averageGradeByCourse($course)
 	{
 		return round(Course::findOrFail($course)->students()->avg('grade'), 1);
+	}
+	
+	public function filterByGrade($grade)
+	{
+		return Institution::where('grade', $grade)->get();
 	}
 }

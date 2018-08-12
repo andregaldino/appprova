@@ -10,9 +10,10 @@ namespace App\Repositories\Institution;
 
 use App\Models\Institution;
 use App\Repositories\Base\CrudContract;
+use App\Repositories\Base\FilterContract;
 use App\Repositories\Base\SearchContract;
 
-class InstitutionRepository implements InstitutionRepositoryContract, CrudContract, SearchContract
+class InstitutionRepository implements InstitutionRepositoryContract, CrudContract, SearchContract, FilterContract
 {
 	public function findByName(String $name)
 	{
