@@ -15,6 +15,7 @@ class CourseTest extends  TestCase
 {
 	use DatabaseMigrations;
 	private $repository;
+	private $coursesFaker;
 	
 	public function setUp()
 	{
@@ -25,6 +26,8 @@ class CourseTest extends  TestCase
 			CourseRepository::class
 		);
 		$this->repository = app()->make(CourseRepositoryContract::class);
+		
+		$this->coursesFaker = factory(Course::class,20)->create();
 	}
 	
 	public function testCreate()
@@ -43,94 +46,89 @@ class CourseTest extends  TestCase
 	
 	public function testFindByName()
 	{
-		$coursesFaker = factory(Course::class,10)->create();
+		$courseFaker = $this->coursesFaker->first();
+		$course = $this->repository->findByName($courseFaker->name);
 
-		$course = $this->repository->findByName($coursesFaker->first()->name);
-
-		$this->assertEquals($coursesFaker->first()->name, $course->name);
+		$this->assertEquals($courseFaker->name, $course->name);
 		$this->seeInDatabase('courses', [
-			'name' => $coursesFaker->first()->name,
-			'institution_id' => $coursesFaker->first()->institution_id
+			'name' => $courseFaker->name,
+			'institution_id' => $courseFaker->institution_id
 		]);
 	}
 	
 	public function testGelAll()
 	{
-		factory(Course::class,20)->create();
-		
 		$courses = $this->repository->all();
 		
-		$this->assertGreaterThanOrEqual(20, $courses->count());
+		$this->assertCount(20, $courses);
 		
 	}
 	
 	public function testUpdate()
 	{
 		$institutionsFaker = factory(Institution::class,5)->create();
-		$coursesFaker = factory(Course::class,10)->create();
+		$courseFaker = $this->coursesFaker->get(5);
+		$institutionFaker = $institutionsFaker->get(2);
 		
-		
-		$this->repository->update($coursesFaker->get(5)->id, [
+		$this->repository->update($courseFaker->id, [
 			'name' => 'Ciencia da Computacao',
-			'institution_id' => $institutionsFaker->get(2)->id
+			'institution_id' => $institutionFaker->id
 		]);
 		
 		$this->seeInDatabase('courses',[
 			'name' => 'Ciencia da Computacao',
-			'institution_id' => $institutionsFaker->get(2)->id,
-			'id' => $coursesFaker->get(5)->id
+			'institution_id' => $institutionFaker->id,
+			'id' => $courseFaker->id
 		]);
 	}
 	
 	public function testUpdateInstitution()
 	{
 		$institutionsFaker = factory(Institution::class, 5)->create();
-		$coursesFaker = factory(Course::class, 10)->create();
+		$institutionFaker = $institutionsFaker->get(2);
+		$courseFaker = $this->coursesFaker->get(5);
 		
-		
-		$this->repository->update($coursesFaker->get(5)->id, [
-			'institution_id' => $institutionsFaker->get(2)->id
+		$this->repository->update($courseFaker->id, [
+			'institution_id' => $institutionFaker->id
 		]);
 		
 		$this->seeInDatabase('courses', [
-			'name' => $coursesFaker->get(5)->name,
-			'institution_id' => $institutionsFaker->get(2)->id,
-			'id' => $coursesFaker->get(5)->id
+			'name' => $courseFaker->name,
+			'institution_id' => $institutionFaker->id,
+			'id' => $courseFaker->id
 		]);
 	}
 	
 	public function testDelete()
 	{
-		$coursesFaker = factory(Course::class,5)->create();
-		
+		$courseFaker = $this->coursesFaker->get(1);
 		$this->seeInDatabase('courses',[
-			'id' => $coursesFaker->get(1)->id
+			'id' => $courseFaker->id
 		]);
 		
-		$this->repository->remove($coursesFaker->get(1)->id);
+		$this->repository->remove($courseFaker->id);
 		
 		$this->notSeeInDatabase('courses',[
-			'id' => $coursesFaker->get(1)->id
+			'id' => $courseFaker->id
 		]);
 	}
 	
 	public function testSearchByPartOfName()
 	{
-		$coursesFaker = factory(Course::class,10)->create();
-		
-		$courses = $this->repository->searchByName(substr($coursesFaker->get(1)->name, 0 ,-3));
-		$this->assertTrue($courses->contains($coursesFaker->get(1)));
+		$courseFaker = $this->coursesFaker->get(1);
+		$courses = $this->repository->searchByName(substr($courseFaker->name, 0 ,-3));
+		$this->assertTrue($courses->contains($courseFaker));
 	}
 	
 	public function testAddStudentsToCourse()
 	{
-		$coursesFaker = factory(Course::class,10)->create();
 		$studentsFaker = factory(Student::class,10)->create();
-		$studentsFaker1 = factory(Student::class,20)->create();
 		
 		$studentsIds = $studentsFaker->pluck('id')->toArray();
 		
-		$course = $this->repository->addStudents($coursesFaker->get(0)->id, $studentsIds);
+		$courseFaker = $this->coursesFaker->get(3);
+		
+		$course = $this->repository->addStudents($courseFaker->id, $studentsIds);
 		
 		$this->assertCount(10,
 			$course
@@ -148,7 +146,7 @@ class CourseTest extends  TestCase
 	
 	public function testAverageGrade()
 	{
-		$courseFaker = factory(Course::class)->create();
+		$courseFaker = $this->coursesFaker->get(5);
 		
 		$student = factory(Student::class)->create();
 		$student1 = factory(Student::class)->create();
@@ -161,7 +159,7 @@ class CourseTest extends  TestCase
 		
 		$this->assertEquals(6.7, $this->repository->averageGradeByCourse($courseFaker->id));
 		
-		$courseFaker1 = factory(Course::class)->create();
+		$courseFaker1 = $this->coursesFaker->get(6);
 		
 		$studentFaker = factory(Student::class)->create();
 		$studentFaker1 = factory(Student::class)->create();

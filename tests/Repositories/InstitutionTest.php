@@ -12,6 +12,7 @@ class InstitutionTest extends  TestCase
 {
 	use DatabaseMigrations;
 	private $repository;
+	private $institutionsFaker;
 	
 	public function setUp()
 	{
@@ -21,6 +22,8 @@ class InstitutionTest extends  TestCase
 			InstitutionRepository::class
 		);
 		$this->repository = app()->make(InstitutionRepositoryContract::class);
+		
+		$this->institutionsFaker = factory(Institution::class,20)->create();
 	}
 	
 	public function testCreate()
@@ -36,7 +39,7 @@ class InstitutionTest extends  TestCase
 	
 	public function testFindByName()
 	{
-		$institutionFaker = factory(Institution::class)->create();
+		$institutionFaker = $this->institutionsFaker->get(2);
 		
 		$institution = $this->repository->findByName($institutionFaker->name);
 		
@@ -46,18 +49,15 @@ class InstitutionTest extends  TestCase
 	
 	public function testGelAll()
 	{
-		factory(Institution::class,20)->create();
-		
 		$institutions = $this->repository->all();
 		
-		$this->assertGreaterThanOrEqual(20, $institutions->count());
+		$this->assertCount(20, $institutions);
 		
 	}
 	
 	public function testUpdate()
 	{
-		$institutions = factory(Institution::class,5)->create();
-		$institutionFaker = $institutions->get(2);
+		$institutionFaker = $this->institutionsFaker->get(2);
 		
 		$this->repository->update($institutionFaker->id, [
 			'name' => 'Universidade Federal'
@@ -71,8 +71,7 @@ class InstitutionTest extends  TestCase
 	
 	public function testDelete()
 	{
-		$institutions = factory(Institution::class,5)->create();
-		$institutionFaker = $institutions->get(2);
+		$institutionFaker = $this->institutionsFaker->get(2);
 		
 		$this->repository->remove($institutionFaker->id);
 		
@@ -84,8 +83,7 @@ class InstitutionTest extends  TestCase
 	
 	public function testSearchByPartOfName()
 	{
-		$institutionsFaker = factory(Institution::class,10)->create();
-		$institutionFaker = $institutionsFaker->get(1);
+		$institutionFaker = $this->institutionsFaker->get(1);
 		
 		$institutions = $this->repository->searchByName(substr($institutionFaker->name, 0 ,-3));
 		
