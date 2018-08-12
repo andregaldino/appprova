@@ -80,6 +80,7 @@ $app->singleton(
 
  $app->register(App\Providers\AppServiceProvider::class);
  $app->register(App\Providers\CommandServiceProvider::class);
+ $app->register(EllipseSynergie\ApiResponse\Laravel\LumenServiceProvider::class);
 
 // $app->register(App\Providers\EventServiceProvider::class);
 
