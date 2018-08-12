@@ -14,6 +14,7 @@
 $factory->define(App\Models\Institution::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->company(),
+	    'grade' => $faker->numberBetween(1,5)
     ];
 });
 

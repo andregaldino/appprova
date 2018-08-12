@@ -6,7 +6,6 @@ use Tests\TestCase;
 use App\Repositories\Institution\InstitutionRepository;
 use App\Repositories\Institution\InstitutionRepositoryContract;
 use Laravel\Lumen\Testing\DatabaseMigrations;
-use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class InstitutionTest extends  TestCase
 {
@@ -101,5 +100,12 @@ class InstitutionTest extends  TestCase
 			'name' => 'Impacta',
 			'id' => $institutionFaker->id
 		]);
+	}
+	
+	public function testOrderByGrade()
+	{
+		$institutionsFakerOrdered = $this->institutionsFaker->sortByDesc('grade');
+		$institutionsOrdered = $this->repository->allOrderedByGrade();
+		$this->assertEquals($institutionsFakerOrdered->pluck('grade'), $institutionsOrdered->pluck('grade'));
 	}
 }
