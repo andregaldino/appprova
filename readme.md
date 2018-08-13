@@ -1,21 +1,70 @@
-# Lumen PHP Framework
+# Appprova
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+That repository  contains a API 
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+## Requirements
 
-## Official Documentation
+ - Docker
+ - Docker Compose
 
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
+## Instalation
+Clone repository
+```sh
+$ git clone git@github.com:andregaldino/appprova.git
+$ cd appprova
+```
 
-## Security Vulnerabilities
+Now we need to create our containers witch has API
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+That command create two containers, one with nginx and php running on localhost:8080 to server our application and other with our database mysql running on localhost:33067 
+```sh
+$ docker-compose up -d
+```
 
-## License
+Copy file `.env.example` to `.env`
 
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
+Install dependencies of lumen framework and create database
+
+```
+$ docker exec appprova-app composer install
+$ docker exec appprova-app php artisan migrate
+```
+
+that's it, our Application is running on localhost:8080
+
+
+## Usage 
+ To run tests we use PHPUnit 
+ 
+ ```docker exec appprova-app vendor/bin/phpunit```
+ 
+ 
+ ## API endpoints
+ 
+ ### Institutions
+ENDPOINT /api/v1/institutions
+- [GET /](./doc/institutions#get)
+- [POST /](./doc/institutions#post)
+- [GET /orderedGrade](./doc/institutions#get-orderedGrade)
+- [PATCH /{id}/update](./doc/institutions#patch-idupdate)
+- [GET /searchByName/{name}](./doc/institutions#get-searchByNamename)
+- [GET /findByGrade/{grade}](./doc/institutions#get-findGradegrade)
+ 
+ ### Courses
+ ENDPOINT /api/v1/courses
+ - [GET /](./doc/courses#get)
+ - [POST /](./doc/courses#post)
+ - [GET /searchByName/{name}](./doc/courses#get-searchByNamename)
+ - [GET /averageGrade](./doc/courses#get-aerageGrade)
+ - [PATCH /{id}/update](./doc/courses#patch-idupdate)
+ - [POST /{id}/subscribeStudents](./doc/courses#post-idsubscribeStudents)
+  
+  
+  ### Students
+  ENDPOINT /api/v1/students
+  - [GET /](./doc/students#get)
+  - [POST /](./doc/students#post)
+  - [POST /{id}/subscribeCourse](./doc/students#post-idsubscribeCourse)
+   
+ 
