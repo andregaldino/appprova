@@ -50,33 +50,33 @@ that's it, our Application is running on localhost:8080
  
  ## API endpoints
  
- ##Heroku 
+ ## Heroku 
  
  Endpoint to heroku (https://andre-appprova.herokuapp.com)
  
  ### Institutions
 ENDPOINT /api/v1/institutions
-- [GET /](./doc/institutions#get)
-- [POST /](./doc/institutions#post)
-- [GET /orderedGrade](./doc/institutions#get-orderedGrade)
-- [PATCH /{id}/update](./doc/institutions#patch-idupdate)
-- [GET /searchByName/{name}](./doc/institutions#get-searchByNamename)
-- [GET /findByGrade/{grade}](./doc/institutions#get-findGradegrade)
+- [GET /](./doc/institutions.md#get)
+- [POST /](./doc/institutions.md#post)
+- [GET /orderedGrade](./doc/institutions.md#get-orderedGrade)
+- [PATCH /{id}/update](./doc/institutions.md#patch-idupdate)
+- [GET /searchByName/{name}](./doc/institutions.md#get-searchByNamename)
+- [GET /findByGrade/{grade}](./doc/institutions.md#get-findGradegrade)
  
  ### Courses
  ENDPOINT /api/v1/courses
- - [GET /](./doc/courses#get)
+ - [GET /](./doc/courses.md#get)
  - [POST /](./doc/courses#post)
- - [GET /searchByName/{name}](./doc/courses#get-searchByNamename)
- - [GET /averageGrade](./doc/courses#get-aerageGrade)
- - [PATCH /{id}/update](./doc/courses#patch-idupdate)
- - [POST /{id}/subscribeStudents](./doc/courses#post-idsubscribeStudents)
+ - [GET /searchByName/{name}](./doc/courses.md#get-searchByNamename)
+ - [GET /averageGrade](./doc/courses.md#get-aerageGrade)
+ - [PATCH /{id}/update](./doc/courses.md#patch-idupdate)
+ - [POST /{id}/subscribeStudents](./doc/courses.md#post-idsubscribeStudents)
   
   
   ### Students
   ENDPOINT /api/v1/students
-  - [GET /](./doc/students#get)
-  - [POST /](./doc/students#post)
-  - [POST /{id}/subscribeCourse](./doc/students#post-idsubscribeCourse)
+  - [GET /](./doc/students.md#get)
+  - [POST /](./doc/students.md#post)
+  - [POST /{id}/subscribeCourse](./doc/students.md#post-idsubscribeCourse)
    
  

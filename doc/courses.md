@@ -1,6 +1,6 @@
-##Request & Response Examples
+## Request & Response Examples
 
-###GET /
+### GET /
 Example: http://localhost:8080/api/courses
 
 Return all courses ordered by id
@@ -26,7 +26,7 @@ Response body:
     }
 
 
-###POST /
+### POST /
 
 Example: http://localhost:8080/api/courses
 
@@ -62,7 +62,7 @@ Response body:
     }
 
 
-###GET /averageGrade
+### GET /averageGrade
 
 Example: http://localhost:8080/api/courses/1/averageGrade
 
@@ -75,7 +75,7 @@ Response body:
         "averageGrade": 0
     }
     
-###PATCH /{id}/update
+### PATCH /{id}/update
 
 Example: http://localhost:8080/api/courses/1/update
 
@@ -111,7 +111,7 @@ Response body:
     }
 
 
-###GET /searchByName/{name}
+### GET /searchByName/{name}
 
 Search all courses by part of nme
 
@@ -148,7 +148,7 @@ Example: http://localhost:8080/api/courses/searchByName/sis
         ]
     }
 
-###POST /{id}/subscribeStudents
+### POST /{id}/subscribeStudents
 
 Subscribe students to course with grade(optional)
 

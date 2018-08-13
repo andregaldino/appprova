@@ -1,6 +1,6 @@
-##Request & Response Examples
+## Request & Response Examples
 
-###GET /
+### GET /
 Example: http://localhost:8080/api/institutions
 
 Return all institutions ordered by id
@@ -19,7 +19,7 @@ Response body:
     }
 
 
-###POST /
+### POST /
 
 Example: http://localhost:8080/api/institutions
 
@@ -48,7 +48,7 @@ Response body:
 
 
 
-###GET /orderedGrade
+### GET /orderedGrade
 
 Example: http://localhost:8080/api/institutions/orderedGrade
 
@@ -73,7 +73,7 @@ Response body:
         ]
     }
     
-###PATCH /{id}/update
+### PATCH /{id}/update
 
 Example: http://localhost:8080/api/institutions/1/update
 
@@ -101,7 +101,7 @@ Response body:
     }
 
 
-###GET /searchByName/{name}
+### GET /searchByName/{name}
 
 Search institutions by part of name
 
@@ -124,7 +124,7 @@ Example: http://localhost:8080/api/institutions/searchByName/instituto
         ]
     }
 
-###GET /findByGrade/{grade}
+### GET /findByGrade/{grade}
 
 Return institutions by grade
 

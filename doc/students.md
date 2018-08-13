@@ -1,6 +1,6 @@
-##Request & Response Examples
+## Request & Response Examples
 
-###GET /
+### GET /
 Example: http://localhost:8080/api/students
 
 Return all students
@@ -21,7 +21,7 @@ Response body:
     }
 
 
-###POST /
+### POST /
 
 Example: http://localhost:8080/api/students
 
@@ -45,7 +45,7 @@ Response body:
         }
     }
 
-###POST /{id}/subscribeCourse
+### POST /{id}/subscribeCourse
 
 Example: http://localhost:8080/api/students/2/subscribeCourse
     
