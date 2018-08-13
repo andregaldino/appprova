@@ -42,6 +42,10 @@ that's it, our Application is running on localhost:8080
  
  ## API endpoints
  
+ ##Heroku 
+ 
+ Endpoint to heroku (https://andre-appprova.herokuapp.com)
+ 
  ### Institutions
 ENDPOINT /api/v1/institutions
 - [GET /](./doc/institutions#get)
