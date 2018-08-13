@@ -6,7 +6,7 @@ That repository  contains a API
  - Docker
  - Docker Compose
 
-## Instalation
+## Installation
 Clone repository
 ```sh
 $ git clone git@github.com:andregaldino/appprova.git
