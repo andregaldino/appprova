@@ -26,7 +26,11 @@ class CourseRepository implements CourseRepositoryContract, CrudContract, Search
 	
 	public function update(int $id, array $data)
 	{
-		return Course::findOrFail($id)->update($data);
+		$course = Course::findOrFail($id);
+		if(!$course->update($data)){
+			throw new \Exception('Error to save Course');
+		}
+		return $course;
 	}
 	
 	public function remove(int $id)

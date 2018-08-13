@@ -9,6 +9,7 @@ use App\Transformers\StudentTransformer;
 use EllipseSynergie\ApiResponse\Contracts\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Course;
 
 class StudentController
 {
@@ -80,9 +81,19 @@ class StudentController
 	public function addCourse(Request $request, $id)
 	{
 		$validator = Validator::make($request->all(), [
-			'course.*' => 'required|exists:courses,id',
-			'course.*.grade' => 'numeric',
-			
+			'courses.*.grade' => 'numeric',
+			'courses' => [
+				'required',
+				'array',
+				function($attribute, $value, $fail) {
+					// index arr
+					$ids = array_keys($value);
+					// query to check if array keys is not valid
+					$coursesId = Course::whereIn('id', $ids)->count();
+					if ($coursesId != count($ids))
+						return $fail($attribute.' is invalid.');  // -> "quantity is invalid"
+				}
+			],
 		]);
 		
 		if ($validator->fails()) {

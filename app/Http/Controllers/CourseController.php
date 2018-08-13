@@ -65,7 +65,7 @@ class CourseController
 		$validator = Validator::make($request->all(), [
 			'name' => 'required|max:255',
 			'grade' => 'numeric',
-			'institution_id' => 'required|exists:institutions,id'
+			'institution_id' => 'exists:institutions,id'
 		
 		]);
 		
@@ -105,8 +105,6 @@ class CourseController
 				}
 			],
 		]);
-		
-		
 		
 		if ($validator->fails()) {
 			return $this->response->errorWrongArgsValidator($validator);
