@@ -1,7 +1,6 @@
 # Appprova
 
-That repository  contains a API 
-
+That repository  contains a API
 ## Requirements
 
  - Docker
@@ -39,6 +38,15 @@ that's it, our Application is running on localhost:8080
  
  ```docker exec appprova-app vendor/bin/phpunit```
  
+
+ to use API it's required insert data in database
+ 
+ ### Using API  
+ - Create institutions
+ - Create courses
+ - Create students
+ - Sync students to course 
+
  
  ## API endpoints
  
