@@ -25,8 +25,9 @@ $router->group(['prefix' => '/api'], function () use ($router) {
 	$router->group(['as' => 'courses.', 'prefix' => 'courses'], function() use ($router){
 		$router->get('/',['as' => 'index', 'uses' => 'CourseController@index']);
 		$router->post('/',['as' => 'store', 'uses' => 'CourseController@store']);
-		$router->patch('{id}/update',['as' => 'update', 'uses' => 'CourseController@update']);
 		$router->get('searchByName/{name}',['as' => 'find.name', 'uses' => 'CourseController@searchByName']);
+		$router->get('averageGrade',['as' => 'average.grade', 'uses' => 'CourseController@averageGrade']);
+		$router->patch('{id}/update',['as' => 'update', 'uses' => 'CourseController@update']);
 		$router->post('{id}/subscribeStudents',['as' => 'subscribe.students', 'uses' => 'CourseController@addStudents']);
 	});
 	

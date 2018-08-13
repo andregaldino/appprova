@@ -61,4 +61,12 @@ class CourseRepository implements CourseRepositoryContract, CrudContract, Search
 		return Course::where('grade', $grade)->get();
 	}
 	
+	public function averageGrade()
+	{
+		return Course::join('student_course','courses.id', '=', 'student_course.course_id')
+			->selectRaw('courses.*, AVG(student_course.grade)')
+			->groupBy('courses.id')
+			->get();
+	}
+	
 }

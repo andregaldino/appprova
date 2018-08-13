@@ -118,4 +118,15 @@ class CourseController
 			new CourseTransformer
 		);
 	}
+	
+	public function averageGradeByCourse($course)
+	{
+		$averageGrade = $this->repository->averageGradeByCourse($course);
+		
+		return $this->response->withArray([
+			'course' => $course,
+			'averageGrade' => $averageGrade
+		]);
+	}
+
 }
